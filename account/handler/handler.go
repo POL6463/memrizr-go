@@ -18,7 +18,7 @@ func NewHandler(c *Config) {
 
 	g := c.R.Group(os.Getenv("ACCOUNT_API_URL"))
 
-	g.GET("/me", h.Me)
+	g.GET("/me", h.Me) 
 	g.POST("/signup", h.Signup)
 	g.POST("/signin", h.Signin)
 	g.POST("/signout", h.Signout)

@@ -4,17 +4,23 @@ import (
 	"net/http"
 	"os"
 
+	"github.com/POL6463/memrizr-go/model"
 	"github.com/gin-gonic/gin"
 )
 
-type Handler struct {}
+type Handler struct {
+	UserService model.UserService
+}
 
 type Config struct {
 	R *gin.Engine
+	UserService model.UserService
 }
 
 func NewHandler(c *Config) {
-	h := &Handler{}
+	h := &Handler{
+		UserService: c.UserService,
+	}
 
 	g := c.R.Group(os.Getenv("ACCOUNT_API_URL"))
 
@@ -26,12 +32,6 @@ func NewHandler(c *Config) {
 	g.POST("/image", h.Image)
 	g.DELETE("/image", h.DeleteImage)
 	g.GET("/details", h.Details)
-}
-
-func (h *Handler) Me(c *gin.Context) {
-	c.JSON(http.StatusOK, gin.H{
-		"hello": "it's me",
-	})
 }
 
 func (h *Handler) Signup(c *gin.Context) {
